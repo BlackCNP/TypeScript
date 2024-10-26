@@ -1,1 +1,1 @@
-This repository demonstrates the conversion of JavaScript code to TypeScript-like code
+# [Main](https://github.com/BlackCNP/TypeScript/tree/main)  
