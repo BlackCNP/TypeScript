@@ -13,3 +13,4 @@
 
 ----
 # [Лабораторна робота №3](https://github.com/BlackCNP/TypeScript/tree/feature/lb-3)  
+# [Лабораторна робота №5](https://github.com/BlackCNP/TypeScript/tree/feature/lb-5)
