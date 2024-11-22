@@ -4,18 +4,21 @@ const openButton: HTMLElement | null = document.getElementById('openModal');
 const closeButton: HTMLElement | null = document.getElementById('closeModal');
 
 // Відкриття модального вікна
-openButton?.addEventListener('click', () => {
-  if (modal) {
-    modal.style.display = 'block';
-  }
-});
+if (openButton) {
+  openButton.addEventListener('click', () => {
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  });
+}
 
-
-closeButton?.addEventListener('click', () => {
-  if (modal) {
-    modal.style.display = 'none';
-  }
-});
+if (closeButton) {
+  closeButton.addEventListener('click', () => {
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  });
+}
 
 // Витягування даних  fetch
 fetch('https://jsonplaceholder.typicode.com/todos/1')
