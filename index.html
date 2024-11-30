@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практична 7</title>
+    <script src="script.js" defer></script>
+    <style>
+        .one h1 {
+            text-align: center;
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -50px 0 0 -50px;
+          }
+          .one h1:before {
+            width: 28px;
+            height: 5px;
+            display: block;
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            margin-left: -14px;
+            background-color: #b80000;
+          }
+          .one h1:after {
+            width: 100px;
+            height: 1px;
+            display: block;
+            content: "";
+            position: relative;
+            margin-top: 25px;
+            left: 50%;
+            margin-left: -50px;
+            background-color: #b80000;
+          }
+    </style>
+</head>
+<body>
+    <div class="one">
+    <h1>Шось</h1>
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ums = new UniversityManagementSystem();
+
+            // Додати студента
+            const student = ums.enrollStudent({
+                fullName: "Стів Роджерс",
+                faculty: Faculty.Computer_Science,
+                year: 2,
+                status: StudentStatus.Active,
+                enrollmentDate: new Date(),
+                groupNumber: "ПД-44"
+            });
+            console.log("Новий студент:", student);
+
+            // Додати курс
+            const course = ums.addCourse({
+                name: "Супер героїств",
+                type: CourseType.Mandatory,
+                credits: 3,
+                semester: Semester.First,
+                faculty: Faculty.Computer_Science,
+                maxStudents: 2 // перевірка додавання
+            });
+            console.log("Новий курс:", course);
+
+            // Зареєструвати студента на курс
+            try {
+                ums.registerForCourse(student.id, course.id);
+                console.log(`Студент ${student.fullName} зареєстрований на курс ${course.name}`);
+            } catch (error) {
+                console.error(error.message);
+            }
+
+            // Спроба зареєструвати ще одного студента 
+            const student2 = ums.enrollStudent({
+                fullName: "Тоні Старк",
+                faculty: Faculty.Computer_Science,
+                year: 2,
+                status: StudentStatus.Active,
+                enrollmentDate: new Date(),
+                groupNumber: "ПД-44"
+            });
+            try {
+                ums.registerForCourse(student2.id, course.id);
+                console.log(`Студент ${student2.fullName} зареєстрований на курс ${course.name}`);
+            } catch (error) {
+                console.error(error.message);
+            }
+
+            // Виставлення оцінки
+            try {
+                ums.setGrade(student.id, course.id, Grade.Excellent);
+                console.log(`Оцінка виставлена студенту ${student.fullName}: ${Grade.Excellent}`);
+            } catch (error) {
+                console.error(error.message);
+            }
+
+            // Оновлення статусу студента
+            try {
+                ums.updateStudentStatus(student.id, StudentStatus.Graduated);
+                console.log(`Статус студента ${student.fullName} оновлено до: ${StudentStatus.Graduated}`);
+            } catch (error) {
+                console.error(error.message);
+            }
+
+            // Отримання студентів за факультетом
+            const studentsByFaculty = ums.getStudentsByFaculty(Faculty.Computer_Science);
+            console.log("Студенти факультету Computer Science:", studentsByFaculty);
+
+            // Отримання оцінок студента
+            const grades = ums.getStudentGrades(student.id);
+            console.log(`Оцінки студента ${student.fullName}:`, grades);
+
+            // Отримання доступних курсів
+            const availableCourses = ums.getAvailableCourses(Faculty.Computer_Science, Semester.First);
+            console.log("Доступні курси для факультету Computer Science на 1 семестр:", availableCourses);
+
+            // Розрахунок середнього балу студента
+            const averageGrade = ums.calculateAverageGrade(student.id);
+            console.log(`Середній бал студента ${student.fullName}:`, averageGrade);
+
+            // Отримання списку відмінників
+            const honors = ums.getHonorsByFaculty(Faculty.Computer_Science);
+            console.log("Відмінники факультету Computer Science:", honors);
+        });
+    </script>
+</body>
+</html>
